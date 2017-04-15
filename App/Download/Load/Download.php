@@ -1,11 +1,13 @@
 <?php 
 namespace Download\Load;
 
-class Download
+abstract class Download
 {
-	public function init()
+	public function check()
 	{
-		echo 'cos';
+		$assoc = ['fb' => 'dane', 'tw'=>'dane2'];
+		return $assoc;
 	}
+
 }
 ?>

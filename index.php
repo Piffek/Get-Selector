@@ -1,9 +1,9 @@
 <?php 
-use Download\Load\Download;
+use App\Display\Show;
 
 require_once 'App/run.php';
 
-$download = new Download();
-$download->init();
+$show = new Show;
+$show->open();
 
 ?>
