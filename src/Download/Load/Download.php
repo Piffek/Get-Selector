@@ -1,6 +1,7 @@
 <?php 
 namespace Download\Load;
 use \DOMDocument;
+use \Wa72\HtmlPageDom\HtmlPage;
 abstract class Download
 {
 	public function check($url)
@@ -35,21 +36,32 @@ abstract class Download
 	public function checkByID($url, $params)
 	{
 		try {
-			$f = file_get_contents($url, false);
+			$page = new HtmlPage(file_get_contents($url));
 			$data=array();
-			$dom = new DOMDocument();
-			@$dom->loadHTML($f);
+
 			foreach($params as $param)
 			{
-				$data = $dom->getElementById($param);
-				$html2 = $dom->saveHTML($data);
-				echo $html2;
+				echo $page->filter('#'.$param)->saveHTML();
 			}
 		}catch(Exception $e){
 			throw new Exception("Invalid URL",0,$e);
 		}
 	}
 	
+	public function checkByClass($url, $params)
+	{
+		try {
+			$page = new HtmlPage(file_get_contents($url));
+			$data=array();
+
+			foreach($params as $param)
+			{
+				echo $page->filter('.'.$param)->saveHTML();
+			}
+		}catch(Exception $e){
+			throw new Exception("Invalid URL",0,$e);
+		}
+	}
 
 }
 ?>
