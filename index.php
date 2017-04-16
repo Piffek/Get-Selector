@@ -1,9 +1,9 @@
 <?php 
-use src\Display\Show;
+use src\Client;
 
 require_once 'src/run.php';
 
-$show = new Show;
-$show->open();
+$show = new Client;
+$show->open('www.google.pl');
 
 ?>

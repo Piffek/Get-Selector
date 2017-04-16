@@ -1,12 +1,11 @@
 <?php 
 namespace Download\Load;
-
 abstract class Download
 {
-	public function check()
+	public function check($url)
 	{
-		$assoc = ['fb' => 'dane', 'tw'=>'dane2'];
-		return $assoc;
+		$ch = curl_init($url);
+		curl_exec($ch);
 	}
 
 }
