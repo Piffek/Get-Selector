@@ -18,7 +18,9 @@ class Client extends Download
 	 */
 	public function curlInitWithParam($url,$param)
 	{
-		$this->checkWithParam($url,$param);
+		$domDocument = new DOMDocument('1.0', "UTF-8");
+		$domDocument->loadHTML($this->checkWithParam($url,$param));
+		echo $domDocument->saveHTML();	
 	}
 }
 
