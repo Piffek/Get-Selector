@@ -8,7 +8,8 @@ class Client extends Download
 	 * $url = string
 	 */
 	public function curlINIT($url){
-		$this->check($url);
+		return $this->check($url);
+		
 	}
 	
 	/*
@@ -18,10 +19,20 @@ class Client extends Download
 	 */
 	public function curlInitWithParam($url,$param)
 	{
-		$domDocument = new DOMDocument('1.0', "UTF-8");
-		$domDocument->loadHTML($this->checkWithParam($url,$param));
-		echo $domDocument->saveHTML();	
+		return $this->checkWithParam($url,$param);
 	}
+	
+	/*
+	 * check the webside
+	 * $url = string
+	 * $param = array
+	 */
+	public function curlInitWithParamByID($url,$param)
+	{
+		return $this->checkByID($url,$param);
+	}
+	
+	
 }
 
 ?>
