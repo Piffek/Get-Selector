@@ -1,7 +1,7 @@
 <?php 
-use App\Display\Show;
+use src\Display\Show;
 
-require_once 'App/run.php';
+require_once 'src/run.php';
 
 $show = new Show;
 $show->open();

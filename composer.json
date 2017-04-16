@@ -1,8 +1,8 @@
 {
 	"autoload" : {
 		"psr-4" : {
-			"Download\\" : "App/Download",
-			"App\\" : "App"
+			"Download\\" : "src/Download",
+			"src\\" : "src"
 		}
 	}
 }
