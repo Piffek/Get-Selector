@@ -6,17 +6,23 @@ require_once 'src/bootstrap.php';
 $show = new Client();
 //echo $show->curlINIT('http://www.sklep.bielawa.pl');
 //$show->curlInitWithParam('www.sklep.bielawa.pl/show_one_product.php/',['id'=>'176']);
-$review = $show->checkDOMWithParamById('https://www.gpw.pl/', ['contentArea','mainMenu']);
+/*$review = $show->getWithParamsById('https://www.gpw.pl/', ['contentArea','mainMenu']);
 foreach($review as $rew)
 {
-	echo $rew['contentArea'];
-}
-/*$array = $show->checkDOMWithParamByClass('https://www.gpw.pl/', ['box']);
+	echo $rew['mainMenu'];
+}*/
+/*
+$array = $show->getWithParamsByClass('https://www.gpw.pl/', ['box']);
 foreach ($array as $row)
 {
 	echo $row['box'];
-}*/
-//print_r($show->checkDOMallIdWithHTML('https://www.gpw.pl/'));
-//$show->checkDOMallClassWithHTML('https://www.gpw.pl/');
+}
+*/
+//$show->getAllId('https://www.gpw.pl/'));
+$array = $show->getAllClass('https://www.gpw.pl/');
+foreach($array as $row)
+{
+	echo $row.'<br>';
+}
 //$show->curlInitWithParamByTag('http://www.filmweb.pl/', ['ul']);
 ?>

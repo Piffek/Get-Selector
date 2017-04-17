@@ -27,7 +27,7 @@ class Client extends Download
 	 * $url = string
 	 * $param = array
 	 */
-	public function checkDOMWithParamById($url,$param)
+	public function getWithParamsById($url,$param)
 	{
 		return $this->checkByID($url,$param);
 	}
@@ -38,7 +38,7 @@ class Client extends Download
 	 * $url = string
 	 * $param = array
 	 */
-	public function checkDOMWithParamByClass($url,$param)
+	public function getWithParamsByClass($url,$param)
 	{
 		return $this->checkByClass($url,$param);
 	}
@@ -47,7 +47,7 @@ class Client extends Download
 	 * check the webside
 	 * $url = string
 	 */
-	public function checkDOMallIdWithHTML($url)
+	public function getAllId($url)
 	{
 		return $this->checkAllId($url);
 	}
@@ -56,7 +56,7 @@ class Client extends Download
 	 * check the webside
 	 * $url = string
 	 */
-	public function checkDOMallClassWithHTML($url)
+	public function getAllClass($url)
 	{
 		return $this->checkAllClass($url);
 	}

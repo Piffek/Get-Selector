@@ -133,7 +133,7 @@ abstract class Download
 			$result = $dom->query("//*[@id]");
 			for($i=0; $result->length > $i; $i++)
 			{
-				$review[$i][$param] = $result->item($i)->nodeValue.'<br>';
+				$review[] = $result->item($i)->nodeValue.'<br>';
 			}
 			return $review;
 		}catch (\Exception $e){
@@ -158,10 +158,10 @@ abstract class Download
 			$domdocument =  new DOMDocument();
 			@$domdocument->loadHTML($f);
 			$dom = new DOMXPath($domdocument);
-			$result = $dom->query("[@class]");
+			$result = $dom->query("//*[@class]");
 			for($i=0; $result->length > $i; $i++)
 			{
-				$review[$i][$param] = $result->item($i)->nodeValue.'<br>';
+				$review[] = $result->item($i)->nodeValue.'<br>';
 			}
 			return $review;
 		}catch (\Exception $e){
