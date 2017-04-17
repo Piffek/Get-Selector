@@ -42,7 +42,8 @@ abstract class Download
 		try {
 			$f = file_get_contents($url, false);
 			$domdocument = new DOMDocument();
-			@$domdocument->loadHTML($f);
+			$searchPage = mb_convert_encoding($f, 'HTML-ENTITIES', "UTF-8"); 
+			@$domdocument->loadHTML($searchPage);
 			$dom = new DOMXPath($domdocument);
 			$data=array();
 
@@ -51,7 +52,7 @@ abstract class Download
 				$results = $dom->query("//*[@id='" . $param . "']");
 				
 				for($i=0; $results->length > $i; $i++) {
-					echo $review = $results->item($i)->nodeValue.'<br>';
+					echo trim($review = $results->item($i)->nodeValue);
 				}
 			}
 		}catch(Exception $e){
@@ -67,7 +68,8 @@ abstract class Download
 		try {
 			$f = file_get_contents($url,false);
 			$domdocument = new DOMDocument();
-			@$domdocument->loadHTML($f);
+			$searchPage = mb_convert_encoding($f, 'HTML-ENTITIES', "UTF-8"); 
+			@$domdocument->loadHTML($searchPage);
 			$dom = new DOMXPath($domdocument);
 			$data=array();
 			
@@ -83,6 +85,9 @@ abstract class Download
 		}
 	}
 	
+	/*
+	 * Method to check all ID with HTML and parse to text
+	 */
 	public function checkAllId($url)
 	{
 		try {
@@ -91,6 +96,26 @@ abstract class Download
 			@$domdocument->loadHTML($f);
 			$dom = new DOMXPath($domdocument);
 			$result = $dom->query("//*[@id]");
+			for($i=0; $result->length > $i; $i++)
+			{
+				echo $review = $result->item($i)->nodeValue;
+			}
+		}catch (\Exception $e){
+			throw new \Exception("Invalid URL",0,$e);
+		}
+	}
+	
+	/*
+	 * Method to check all CLASS with HTML and parse to text
+	 */
+	public function checkAllClass($url)
+	{
+		try {
+			$f = file_get_contents($url, false);
+			$domdocument =  new DOMDocument();
+			@$domdocument->loadHTML($f);
+			$dom = new DOMXPath($domdocument);
+			$result = $dom->query("[@class]");
 			for($i=0; $result->length > $i; $i++)
 			{
 				echo $review = $result->item($i)->nodeValue;

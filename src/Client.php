@@ -55,6 +55,15 @@ class Client extends Download
 	/*
 	 * check the webside
 	 * $url = string
+	 */
+	public function checkDOMallClassWithHTML($url)
+	{
+		return $this->checkAllClass($url);
+	}
+	
+	/*
+	 * check the webside
+	 * $url = string
 	 * $param = array
 	 */
 	public function curlInitWithParamByTag($url,$param)
