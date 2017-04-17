@@ -37,15 +37,18 @@ abstract class Download
 	{
 		try {
 			$f = file_get_contents($url, false);
-			$dom = new DOMDocument();
-			@$dom->loadHTML($f);
+			$domdocument = new DOMDocument();
+			@$domdocument->loadHTML($f);
+			$dom = new \DOMXPath($domdocument);
 			$data=array();
 
 			foreach($params as $param)
 			{
-				$data = $dom->getElementById($param);
-				$html2 = $dom->saveHTML($data);
-				echo $html2;
+				$results = $dom->query("//*[@id='" . $param . "']");
+				
+				for($i=0; $results->length > $i; $i++) {
+					echo $review = $results->item($i)->nodeValue.'<br>';
+				}
 			}
 		}catch(Exception $e){
 			throw new Exception("Invalid URL",0,$e);
