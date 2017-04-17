@@ -7,10 +7,23 @@ abstract class Download
 	public function check($url)
 	{
 		try {
-			$ch = curl_init($url);
-			curl_setopt($ch, CURLOPT_URL, $url);
-			curl_exec($ch);
-			curl_close($ch);
+			$ch =  curl_init($url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+			curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+			curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/json'));
+			$f = curl_exec($ch);
+			$domdocument = new DOMDocument();
+			$searchPage = mb_convert_encoding($f, 'HTML-ENTITIES', "UTF-8");
+			@$domdocument->loadHTML($searchPage);
+			$dom = new DOMXPath($domdocument);
+			$results = $dom->query('[@class]');
+			for($i=0; $results->length > $i; $i++) {
+				$review = $results->item($i)->nodeValue;
+			}
+			return $review;
 		}catch(Exception $e){
 				throw new Exception("Invalid URL",0,$e);
 		}
@@ -40,7 +53,14 @@ abstract class Download
 	public function checkByID($url, $params)
 	{
 		try {
-			$f = file_get_contents($url, false);
+			$ch =  curl_init($url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+			curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+			curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/json'));
+			$f = curl_exec($ch);
 			$domdocument = new DOMDocument();
 			$searchPage = mb_convert_encoding($f, 'HTML-ENTITIES', "UTF-8"); 
 			@$domdocument->loadHTML($searchPage);
@@ -67,7 +87,14 @@ abstract class Download
 	public function checkByClass($url, $params)
 	{
 		try {
-			$f = file_get_contents($url,false);
+			$ch =  curl_init($url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+			curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+			curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/json'));
+			$f = curl_exec($ch);
 			$domdocument = new DOMDocument();
 			$searchPage = mb_convert_encoding($f, 'HTML-ENTITIES', "UTF-8"); 
 			@$domdocument->loadHTML($searchPage);
@@ -92,7 +119,14 @@ abstract class Download
 	public function checkAllId($url)
 	{
 		try {
-			$f = file_get_contents($url, false);
+			$ch =  curl_init($url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+			curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+			curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/json'));
+			$f = curl_exec($ch);
 			$domdocument =  new DOMDocument();
 			@$domdocument->loadHTML($f);
 			$dom = new DOMXPath($domdocument);
@@ -113,7 +147,14 @@ abstract class Download
 	public function checkAllClass($url)
 	{
 		try {
-			$f = file_get_contents($url, false);
+			$ch =  curl_init($url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+			curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+			curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/json'));
+			$f = curl_exec($ch);
 			$domdocument =  new DOMDocument();
 			@$domdocument->loadHTML($f);
 			$dom = new DOMXPath($domdocument);
@@ -134,7 +175,14 @@ abstract class Download
 	public function checkByTag($url, $params)
 	{
 		try {
-			$f = file_get_contents($url, false);
+			$ch =  curl_init($url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+			curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+			curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/json'));
+			$f = curl_exec($ch);
 			$dom = new DOMDocument();
 			@$dom->loadHTML($f);
 			$data=array();
