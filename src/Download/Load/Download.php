@@ -55,6 +55,28 @@ abstract class Download
 	public function checkByClass($url, $params)
 	{
 		try {
+			$f = file_get_contents($url,false);
+			$domdocument = new DOMDocument();
+			@$domdocument->loadHTML($f);
+			$dom = new \DOMXPath($domdocument);
+			$data=array();
+			
+			foreach($params as $param)
+			{
+				$results = $dom->query("//*[@class='" . $param . "']");
+				
+				for($i=0; $results->length > $i; $i++) {
+					echo $review = $results->item($i)->nodeValue.'<br>';
+				}
+			}
+		}catch(Exception $e){
+			throw new Exception("Invalid URL",0,$e);
+		}
+	}
+	
+	public function checkByTag($url, $params)
+	{
+		try {
 			$f = file_get_contents($url, false);
 			$dom = new DOMDocument();
 			@$dom->loadHTML($f);
@@ -62,7 +84,7 @@ abstract class Download
 			
 			foreach($params as $param)
 			{
-				$data = $dom->getElementById($param);
+				$data = $dom->getElementsByTagName($param);
 				$html2 = $dom->saveHTML($data);
 				echo $html2;
 			}

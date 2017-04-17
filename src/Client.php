@@ -32,6 +32,7 @@ class Client extends Download
 		return $this->checkByID($url,$param);
 	}
 	
+	
 	/*
 	 * check the webside
 	 * $url = string
@@ -40,6 +41,16 @@ class Client extends Download
 	public function curlInitWithParamByClass($url,$param)
 	{
 		return $this->checkByClass($url,$param);
+	}
+	
+	/*
+	 * check the webside
+	 * $url = string
+	 * $param = array
+	 */
+	public function curlInitWithParamByTag($url,$param)
+	{
+		return $this->checkByTag($url,$param);
 	}
 	
 	
