@@ -27,9 +27,9 @@ class Client extends Download
 	 * $url = string
 	 * $param = array
 	 */
-	public function getWithParamsById($url,$param)
+	public function getWithParamsById($url,$param,$selectors = NULL)
 	{
-		return $this->checkByID($url,$param);
+		return $this->checkByID($url,$param, $selectors);
 	}
 	
 	
@@ -38,9 +38,9 @@ class Client extends Download
 	 * $url = string
 	 * $param = array
 	 */
-	public function getWithParamsByClass($url,$param)
+	public function getWithParamsByClass($url,$param, $selectors = NULL)
 	{
-		return $this->checkByClass($url,$param);
+		return $this->checkByClass($url,$param, $selectors);
 	}
 	
 	/*

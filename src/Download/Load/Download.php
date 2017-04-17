@@ -4,6 +4,13 @@ use \DOMDocument;
 use \DOMXPath;
 abstract class Download
 {
+	
+	public function selector($selectors)
+	{
+		$sel = isset($selectors) ? $selectors : '*';
+		return $sel;
+	}
+	
 	public function check($url)
 	{
 		try {
@@ -50,7 +57,7 @@ abstract class Download
 	/*
 	 * Method to check this id with HTML file and parse to text
 	 */
-	public function checkByID($url, $params)
+	public function checkByID($url, $params, $selectors)
 	{
 		try {
 			$ch =  curl_init($url);
@@ -69,7 +76,7 @@ abstract class Download
 			$review = array();
 			foreach($params as $param)
 			{
-				$results = $dom->query("//*[@id='" . $param . "']");
+				$results = $dom->query("//".$this->selector($selectors)."[@id='" . $param . "']");
 				
 				for($i=0; $results->length > $i; $i++) {
 					$review[$i][$param] = $results->item($i)->nodeValue;
