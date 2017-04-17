@@ -1,3 +1,3 @@
-<b>Parse URL</b>
+<b>Parse HTML</b>
 
 Parse HTML website
