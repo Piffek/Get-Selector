@@ -36,12 +36,16 @@ abstract class Download
 	public function checkByID($url, $params)
 	{
 		try {
-			$page = new HtmlPage(file_get_contents($url));
+			$f = file_get_contents($url, false);
+			$dom = new DOMDocument();
+			@$dom->loadHTML($f);
 			$data=array();
 
 			foreach($params as $param)
 			{
-				echo $page->filter('#'.$param)->saveHTML();
+				$data = $dom->getElementById($param);
+				$html2 = $dom->saveHTML($data);
+				echo $html2;
 			}
 		}catch(Exception $e){
 			throw new Exception("Invalid URL",0,$e);
@@ -51,12 +55,16 @@ abstract class Download
 	public function checkByClass($url, $params)
 	{
 		try {
-			$page = new HtmlPage(file_get_contents($url));
+			$f = file_get_contents($url, false);
+			$dom = new DOMDocument();
+			@$dom->loadHTML($f);
 			$data=array();
-
+			
 			foreach($params as $param)
 			{
-				echo $page->filter('.'.$param)->saveHTML();
+				$data = $dom->getElementById($param);
+				$html2 = $dom->saveHTML($data);
+				echo $html2;
 			}
 		}catch(Exception $e){
 			throw new Exception("Invalid URL",0,$e);
