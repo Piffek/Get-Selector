@@ -1,7 +1,7 @@
 <?php 
 namespace Download\Load;
 use \DOMDocument;
-use \Wa72\HtmlPageDom\HtmlPage;
+use \DOMXPath;
 abstract class Download
 {
 	public function check($url)
@@ -33,13 +33,17 @@ abstract class Download
 		}
 	}
 	
+	
+	/*
+	 * Method to check this id with HTML file and parse to text
+	 */
 	public function checkByID($url, $params)
 	{
 		try {
 			$f = file_get_contents($url, false);
 			$domdocument = new DOMDocument();
 			@$domdocument->loadHTML($f);
-			$dom = new \DOMXPath($domdocument);
+			$dom = new DOMXPath($domdocument);
 			$data=array();
 
 			foreach($params as $param)
@@ -55,21 +59,23 @@ abstract class Download
 		}
 	}
 	
+	/*
+	 * Method to check all class with HTML file and parse to text
+	 */
 	public function checkByClass($url, $params)
 	{
 		try {
 			$f = file_get_contents($url,false);
 			$domdocument = new DOMDocument();
 			@$domdocument->loadHTML($f);
-			$dom = new \DOMXPath($domdocument);
+			$dom = new DOMXPath($domdocument);
 			$data=array();
 			
 			foreach($params as $param)
 			{
 				$results = $dom->query("//*[@class='" . $param . "']");
-				
 				for($i=0; $results->length > $i; $i++) {
-					echo $review = $results->item($i)->nodeValue.'<br>';
+					echo $review = $results->item($i)->nodeValue;
 				}
 			}
 		}catch(Exception $e){
@@ -77,6 +83,26 @@ abstract class Download
 		}
 	}
 	
+	public function checkAllId($url)
+	{
+		try {
+			$f = file_get_contents($url, false);
+			$domdocument =  new DOMDocument();
+			@$domdocument->loadHTML($f);
+			$dom = new DOMXPath($domdocument);
+			$result = $dom->query("//*[@id]");
+			for($i=0; $result->length > $i; $i++)
+			{
+				echo $review = $result->item($i)->nodeValue;
+			}
+		}catch (\Exception $e){
+			throw new \Exception("Invalid URL",0,$e);
+		}
+	}
+	
+	/*
+	 * Method to check this tag with HTML file and parse to text
+	 */
 	public function checkByTag($url, $params)
 	{
 		try {
