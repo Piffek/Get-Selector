@@ -46,13 +46,13 @@ abstract class Download
 			@$domdocument->loadHTML($searchPage);
 			$dom = new DOMXPath($domdocument);
 			$data=array();
-
+			$review = array();
 			foreach($params as $param)
 			{
 				$results = $dom->query("//*[@id='" . $param . "']");
 				
 				for($i=0; $results->length > $i; $i++) {
-					$review[] = $results->item($i)->nodeValue;
+					$review[$i][$param] = $results->item($i)->nodeValue;
 				}
 			}
 			return $review;
@@ -77,7 +77,7 @@ abstract class Download
 			{
 				$results = $dom->query("//*[@class='" . $param . "']");
 				for($i=0; $results->length > $i; $i++) {
-					$review[] = $results->item($i)->nodeValue;
+					$review[$i][$param] = $results->item($i)->nodeValue;
 				}
 			}
 			return $review;
@@ -99,7 +99,7 @@ abstract class Download
 			$result = $dom->query("//*[@id]");
 			for($i=0; $result->length > $i; $i++)
 			{
-				$review[] = $result->item($i)->nodeValue.'<br>';
+				$review[$i][$param] = $result->item($i)->nodeValue.'<br>';
 			}
 			return $review;
 		}catch (\Exception $e){
@@ -120,7 +120,7 @@ abstract class Download
 			$result = $dom->query("[@class]");
 			for($i=0; $result->length > $i; $i++)
 			{
-				$review[] = $result->item($i)->nodeValue.'<br>';
+				$review[$i][$param] = $result->item($i)->nodeValue.'<br>';
 			}
 			return $review;
 		}catch (\Exception $e){
