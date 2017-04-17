@@ -11,16 +11,21 @@ abstract class Download
 		return $sel;
 	}
 	
+	public function curlOptions($ch)
+	{
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/json'));
+	}
+	
 	public function check($url)
 	{
 		try {
 			$ch =  curl_init($url);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-			curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-			curl_setopt($ch, CURLOPT_TIMEOUT, 3);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/json'));
+			$this->curlOptions($ch);
 			$f = curl_exec($ch);
 			$domdocument = new DOMDocument();
 			$searchPage = mb_convert_encoding($f, 'HTML-ENTITIES', "UTF-8");
@@ -61,12 +66,7 @@ abstract class Download
 	{
 		try {
 			$ch =  curl_init($url);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-			curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-			curl_setopt($ch, CURLOPT_TIMEOUT, 3);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/json'));
+			$this->curlOptions($ch);
 			$f = curl_exec($ch);
 			$domdocument = new DOMDocument();
 			$searchPage = mb_convert_encoding($f, 'HTML-ENTITIES', "UTF-8"); 
@@ -95,12 +95,7 @@ abstract class Download
 	{
 		try {
 			$ch =  curl_init($url);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-			curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-			curl_setopt($ch, CURLOPT_TIMEOUT, 3);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/json'));
+			$this->curlOptions($ch);
 			$f = curl_exec($ch);
 			$domdocument = new DOMDocument();
 			$searchPage = mb_convert_encoding($f, 'HTML-ENTITIES', "UTF-8"); 
@@ -127,12 +122,7 @@ abstract class Download
 	{
 		try {
 			$ch =  curl_init($url);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-			curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-			curl_setopt($ch, CURLOPT_TIMEOUT, 3);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/json'));
+			$this->curlOptions($ch);
 			$f = curl_exec($ch);
 			$domdocument =  new DOMDocument();
 			@$domdocument->loadHTML($f);
@@ -155,12 +145,7 @@ abstract class Download
 	{
 		try {
 			$ch =  curl_init($url);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-			curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-			curl_setopt($ch, CURLOPT_TIMEOUT, 3);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/json'));
+			$this->curlOptions($ch);
 			$f = curl_exec($ch);
 			$domdocument =  new DOMDocument();
 			@$domdocument->loadHTML($f);
@@ -183,12 +168,7 @@ abstract class Download
 	{
 		try {
 			$ch =  curl_init($url);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-			curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-			curl_setopt($ch, CURLOPT_TIMEOUT, 3);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/json'));
+			$this->curlOptions($ch);
 			$f = curl_exec($ch);
 			$dom = new DOMDocument();
 			@$dom->loadHTML($f);
