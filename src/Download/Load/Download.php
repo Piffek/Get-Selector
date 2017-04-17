@@ -52,9 +52,10 @@ abstract class Download
 				$results = $dom->query("//*[@id='" . $param . "']");
 				
 				for($i=0; $results->length > $i; $i++) {
-					echo '<br>'.$review = $results->item($i)->nodeValue;
+					$review[] = $results->item($i)->nodeValue;
 				}
 			}
+			return $review;
 		}catch(Exception $e){
 			throw new Exception("Invalid URL",0,$e);
 		}
@@ -72,14 +73,14 @@ abstract class Download
 			@$domdocument->loadHTML($searchPage);
 			$dom = new DOMXPath($domdocument);
 			$data=array();
-			
 			foreach($params as $param)
 			{
 				$results = $dom->query("//*[@class='" . $param . "']");
 				for($i=0; $results->length > $i; $i++) {
-					echo '<br>'.$review = $results->item($i)->nodeValue;
+					$review[] = $results->item($i)->nodeValue;
 				}
 			}
+			return $review;
 		}catch(Exception $e){
 			throw new Exception("Invalid URL",0,$e);
 		}
@@ -98,8 +99,9 @@ abstract class Download
 			$result = $dom->query("//*[@id]");
 			for($i=0; $result->length > $i; $i++)
 			{
-				echo '<br>'.$review = $result->item($i)->nodeValue;
+				$review[] = $result->item($i)->nodeValue.'<br>';
 			}
+			return $review;
 		}catch (\Exception $e){
 			throw new \Exception("Invalid URL",0,$e);
 		}
@@ -118,8 +120,9 @@ abstract class Download
 			$result = $dom->query("[@class]");
 			for($i=0; $result->length > $i; $i++)
 			{
-				echo '<br>'.$review = $result->item($i)->nodeValue;
+				$review[] = $result->item($i)->nodeValue.'<br>';
 			}
+			return $review;
 		}catch (\Exception $e){
 			throw new \Exception("Invalid URL",0,$e);
 		}
