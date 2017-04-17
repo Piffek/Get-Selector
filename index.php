@@ -7,7 +7,7 @@ $show = new Client();
 //echo $show->curlINIT('http://www.sklep.bielawa.pl');
 //$show->curlInitWithParam('www.sklep.bielawa.pl/show_one_product.php/',['id'=>'176']);
 
-print_r($review = $show->getWithParamsById('https://www.gpw.pl/', ['mainMenu'], 'body'));
+print_r($review = $show->getWithParamsById('https://www.gpw.pl/', ['mainMenu'], 'div'));
 
 
 /*
