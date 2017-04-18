@@ -27,7 +27,7 @@ class Client extends Download
 	 * $url = string
 	 * $param = array
 	 */
-	public function getWithParamsById($url,$param,$selectors = NULL)
+	public function getWithParamsById($url,$param,$selectors= NULL)
 	{
 		return $this->checkByID($url,$param, $selectors);
 	}
