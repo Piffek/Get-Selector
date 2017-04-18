@@ -4,30 +4,38 @@ use src\Client;
 require_once 'src/bootstrap.php';
 
 $show = new Client();
-//echo $show->curlINIT('http://www.sklep.bielawa.pl');
+//echo $show->check('http://www.sklep.bielawa.pl');
 //$show->curlInitWithParam('www.sklep.bielawa.pl/show_one_product.php/',['id'=>'176']);
 
-$review = $show->getWithParamsById('https://www.gpw.pl/', ['mm1'], 'a');
+/*$review = $show->checkByID('https://www.gpw.pl/', ['mainMenu', 'header' ]);
 foreach($review as $row)
 {
-	echo $row['mm1'].'<br>';
+	echo $row['mainMenu'].'<br>';
 }
 
+foreach($review as $row)
+{
+	echo $row['header'].'<br>';
+}
+*/
 
 /*
-$array = $show->getWithParamsByClass('https://www.gpw.pl/', ['box']);
+$array = $show->checkByClass('https://www.gpw.pl/', ['box']);
 foreach ($array as $row)
 {
 	echo $row['box'];
 }
 */
-//$show->getAllId('https://www.gpw.pl/'));
+
 /*
- * $array = $show->getAllClass('https://www.gpw.pl/');
+print_r($show->checkAllId('https://www.gpw.pl/'));
+*/
+
+$array = $show->checkAllClass('https://www.gpw.pl/');
 foreach($array as $row)
 {
 	echo $row.'<br>';
 }
-*/
+
 //$show->curlInitWithParamByTag('http://www.filmweb.pl/', ['ul']);
 ?>
