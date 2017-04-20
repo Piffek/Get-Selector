@@ -12,7 +12,7 @@ class Client extends Download implements Checking
 		curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 3);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/json'));
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 	}
 	
 	/*

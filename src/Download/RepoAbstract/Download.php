@@ -3,8 +3,9 @@ namespace Download\RepoAbstract;
 
 use \DOMDocument;
 use \DOMXPath;
+use Download\REST\DownloadREST;
 
-abstract class Download
+abstract class Download extends DownloadREST
 {
 	
 	public function selector($selectors)
