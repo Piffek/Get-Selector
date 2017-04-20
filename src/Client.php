@@ -1,7 +1,8 @@
 <?php 
 namespace src;
 use Download\RepoAbstract\Download;
-class Client extends Download
+use Download\Checking;
+class Client extends Download implements Checking
 {
 	
 	public function checkCurlOptions($ch)
