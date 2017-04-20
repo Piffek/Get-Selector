@@ -86,7 +86,7 @@ abstract class Download extends DownloadREST
 	/*
 	 * Method to check all class with HTML file and parse to text
 	 */
-	public function checkCurlByClass($url, $params)
+	public function checkCurlByClass($url, $params,$selectors)
 	{
 		try {
 			$ch =  curl_init($url);
@@ -97,9 +97,10 @@ abstract class Download extends DownloadREST
 			@$domdocument->loadHTML($searchPage);
 			$dom = new DOMXPath($domdocument);
 			$data=array();
+			$review = array();
 			foreach($params as $param)
 			{
-				$results = $dom->query("//*[@class='" . $param . "']");
+				$results = $dom->query("//".$this->selector($selectors)."[@class='" . $param . "']");
 				for($i=0; $results->length > $i; $i++) {
 					$review[$i][$param] = $results->item($i)->nodeValue;
 				}

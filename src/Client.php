@@ -50,9 +50,9 @@ class Client extends Download implements Checking
 	 * $url = string
 	 * $param = array
 	 */
-	public function checkByClass($url,$params, $selectors = NULL)
+	public function checkByClass($url, $param, $selectors = NULL)
 	{
-		return  $this->checkCurlByClass($url, $params, $selectors = NULL);
+		return  $this->checkCurlByClass($url, $param, $selectors = NULL);
 	}
 	
 	/*
