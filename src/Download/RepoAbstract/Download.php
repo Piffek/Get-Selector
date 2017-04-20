@@ -1,11 +1,10 @@
 <?php 
 namespace Download\RepoAbstract;
 
-use Download\RepoInterface\ClientInterface;
 use \DOMDocument;
 use \DOMXPath;
 
-abstract class ClientAbstract implements ClientInterface
+abstract class Download
 {
 	
 	public function selector($selectors)
