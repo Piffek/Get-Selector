@@ -1,31 +1,25 @@
 <?php 
 namespace src;
 use Download\RepoAbstract\ClientAbstract;
-use \DOMDocument;
-use \DOMXPath;
 class Client extends ClientAbstract
 {
+	
+	public function checkCurlOptions($ch)
+	{
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/json'));
+	}
+	
 	/*
 	 * check the webside
 	 * $url = string
 	 */
 	public function check($url){
-		try {
-			$ch =  curl_init($url);
-			$this->curlOptions($ch);
-			$f = curl_exec($ch);
-			$domdocument = new DOMDocument();
-			$searchPage = mb_convert_encoding($f, 'HTML-ENTITIES', "UTF-8");
-			@$domdocument->loadHTML($searchPage);
-			$dom = new DOMXPath($domdocument);
-			$results = $dom->query('//*');
-			for($i=0; $results->length > $i; $i++) {
-				$review = $results->item($i)->nodeValue;
-			}
-			return $review;
-		}catch(Exception $e){
-			throw new Exception("Invalid URL",0,$e);
-		}
+		return $this->checkCurl();
 		
 	}
 	
@@ -36,19 +30,7 @@ class Client extends ClientAbstract
 	 */
 	public function checkWithParam($url,$param)
 	{
-		try {
-			$name = array();
-			$ch = curl_init($url);
-			foreach($param as $key=>$par)
-			{
-				$name[] = '?'.$key.'='.$par;
-			}
-			$implodeParam = implode('',$name);
-			curl_setopt($ch, CURLOPT_URL, $url.''.$implodeParam);
-			curl_close($ch);
-		}catch(Exception $e){
-			throw new Exception("Invalid URL",0,$e);
-		}
+		return $this->checkCurlWithParam($url,$param);
 	}
 	
 	/*
@@ -58,28 +40,7 @@ class Client extends ClientAbstract
 	 */
 	public function checkById($url,$params,$selectors= NULL)
 	{
-		try {
-			$ch =  curl_init($url);
-			$this->curlOptions($ch);
-			$f = curl_exec($ch);
-			$domdocument = new DOMDocument();
-			$searchPage = mb_convert_encoding($f, 'HTML-ENTITIES', "UTF-8");
-			@$domdocument->loadHTML($searchPage);
-			$dom = new DOMXPath($domdocument);
-			$data=array();
-			$review = array();
-			foreach($params as $param)
-			{
-				$results = $dom->query("//".$this->selector($selectors)."[@id='" . $param . "']");
-		
-				for($i=0; $results->length > $i; $i++) {
-					$review[$i][$param] = $results->item($i)->nodeValue;
-				}
-			}
-			return $review;
-		}catch(Exception $e){
-			throw new Exception("Invalid URL",0,$e);
-		}
+		return $this->checkCurlById($url, $params, $selectors=NULL);
 	}
 	
 	
@@ -90,26 +51,7 @@ class Client extends ClientAbstract
 	 */
 	public function checkByClass($url,$params, $selectors = NULL)
 	{
-		try {
-			$ch =  curl_init($url);
-			$this->curlOptions($ch);
-			$f = curl_exec($ch);
-			$domdocument = new DOMDocument();
-			$searchPage = mb_convert_encoding($f, 'HTML-ENTITIES', "UTF-8");
-			@$domdocument->loadHTML($searchPage);
-			$dom = new DOMXPath($domdocument);
-			$data=array();
-			foreach($params as $param)
-			{
-				$results = $dom->query("//*[@class='" . $param . "']");
-				for($i=0; $results->length > $i; $i++) {
-					$review[$i][$param] = $results->item($i)->nodeValue;
-				}
-			}
-			return $review;
-		}catch(Exception $e){
-			throw new Exception("Invalid URL",0,$e);
-		}
+		return  $this->checkCurlByClass($url, $params, $selectors = NULL);
 	}
 	
 	/*
@@ -118,22 +60,7 @@ class Client extends ClientAbstract
 	 */
 	public function checkAllId($url)
 	{
-		try {
-			$ch =  curl_init($url);
-			$this->curlOptions($ch);
-			$f = curl_exec($ch);
-			$domdocument =  new DOMDocument();
-			@$domdocument->loadHTML($f);
-			$dom = new DOMXPath($domdocument);
-			$result = $dom->query("//*[@id]");
-			for($i=0; $result->length > $i; $i++)
-			{
-				$review[] = $result->item($i)->nodeValue.'<br>';
-			}
-			return $review;
-		}catch (\Exception $e){
-			throw new \Exception("Invalid URL",0,$e);
-		}
+		return $this->checkCurlAllId($url);
 	}
 	
 	/*
@@ -142,22 +69,7 @@ class Client extends ClientAbstract
 	 */
 	public function checkAllClass($url)
 	{
-		try {
-			$ch =  curl_init($url);
-			$this->curlOptions($ch);
-			$f = curl_exec($ch);
-			$domdocument =  new DOMDocument();
-			@$domdocument->loadHTML($f);
-			$dom = new DOMXPath($domdocument);
-			$result = $dom->query("//*[@class]");
-			for($i=0; $result->length > $i; $i++)
-			{
-				$review[] = $result->item($i)->nodeValue.'<br>';
-			}
-			return $review;
-		}catch (\Exception $e){
-			throw new \Exception("Invalid URL",0,$e);
-		}
+		return $this->checkCurlAllClass($url);
 	}
 	
 	/*
@@ -167,23 +79,7 @@ class Client extends ClientAbstract
 	 */
 	public function checkByTag($url,$params)
 	{
-		try {
-			$ch =  curl_init($url);
-			$this->curlOptions($ch);
-			$f = curl_exec($ch);
-			$dom = new DOMDocument();
-			@$dom->loadHTML($f);
-			$data=array();
-		
-			foreach($params as $param)
-			{
-				$data = $dom->getElementsByTagName($param);
-				$html2 = $dom->saveHTML($data);
-				echo $html2;
-			}
-		}catch(Exception $e){
-			throw new Exception("Invalid URL",0,$e);
-		}
+		return $this->checkCurlByTag($url, $params);
 	}
 	
 	

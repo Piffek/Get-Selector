@@ -36,6 +36,5 @@ foreach($array as $row)
 {
 	echo $row.'<br>';
 }
-
 //$show->curlInitWithParamByTag('http://www.filmweb.pl/', ['ul']);
 ?>
