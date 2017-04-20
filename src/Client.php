@@ -82,6 +82,7 @@ class Client extends Download implements Checking
 	{
 		return $this->checkCurlByTag($url, $params);
 	}
+
 	
 	
 }
