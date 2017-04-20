@@ -41,7 +41,7 @@ class Client extends Download implements Checking
 	 */
 	public function checkById($url,$params,$selectors= NULL)
 	{
-		return $this->checkCurlById($url, $params, $selectors=NULL);
+		return $this->checkCurlById($url, $params, $selectors);
 	}
 	
 	
@@ -52,7 +52,7 @@ class Client extends Download implements Checking
 	 */
 	public function checkByClass($url, $param, $selectors = NULL)
 	{
-		return  $this->checkCurlByClass($url, $param, $selectors = NULL);
+		return  $this->checkCurlByClass($url, $param, $selectors);
 	}
 	
 	/*
