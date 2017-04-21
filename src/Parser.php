@@ -34,26 +34,7 @@ class Parser extends Core implements Checking
 		return $this->checkCurlWithParam($url,$param);
 	}
 	
-	/*
-	 * check the webside
-	 * $url = string
-	 * $param = array
-	 */
-	public function checkById($url,$params,$selectors= NULL)
-	{
-		return $this->checkCurlById($url, $params, $selectors=NULL);
-	}
 	
-	
-	/*
-	 * check the webside
-	 * $url = string
-	 * $param = array
-	 */
-	public function checkByClass($url,$params, $selectors = NULL)
-	{
-		return  $this->checkCurlByClass($url, $params, $selectors = NULL);
-	}
 	
 	/*
 	 * check the webside
@@ -83,7 +64,17 @@ class Parser extends Core implements Checking
 		return $this->checkCurlByTag($url, $params);
 	}
 
-	
+	/*
+	 * parse the webside
+	 * $what = string
+	 * $param = array
+	 * $selectors = string
+	 * $url = string
+	 */
+	public function find($what = NULL, $params = NULL, $selectors = NULL, $url)
+	{
+		return  $this->findParam($what, $params, $selectors, $url);
+	}
 	
 }
 

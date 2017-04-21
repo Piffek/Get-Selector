@@ -3,7 +3,6 @@ namespace Download\RepoAbstract;
 
 use \DOMDocument;
 use \DOMXPath;
-use Download\REST\DownloadREST;
 
 abstract class Core
 {
@@ -14,7 +13,40 @@ abstract class Core
 		return $sel;
 	}
 	
+	public function what($what)
+	{
+		$when = isset($what) ? $what : '';
+		return $when;
+	}
+	
 	abstract function checkCurlOptions($ch);
+	
+	public function findParam($what, $params, $selectors, $url)
+	{
+		try {
+			$ch =  curl_init($url);
+			$this->checkCurlOptions($ch);
+			$f = curl_exec($ch);
+			$domdocument = new DOMDocument();
+			$searchPage = mb_convert_encoding($f, 'HTML-ENTITIES', "UTF-8");
+			@$domdocument->loadHTML($searchPage);
+			$dom = new DOMXPath($domdocument);
+			$data=array();
+			$review = array();
+			foreach($params as $param)
+			{
+				$results = $dom->query("//".$this->selector($selectors)."[@".$this->what($what)."='" . $param . "']");
+				
+		
+				for($i=0; $results->length > $i; $i++) {
+					$review[$i][$param] = $results->item($i)->nodeValue;
+				}
+			}
+			return $review;
+		}catch(Exception $e){
+			throw new Exception("Invalid URL",0,$e);
+		}
+	}
 	
 	public function checkCurl($url)
 	{
@@ -52,63 +84,7 @@ abstract class Core
 			throw new Exception("Invalid URL",0,$e);
 		}
 	}
-	
-	
-	/*
-	 * Method to check this id with HTML file and parse to text
-	 */
-	public function checkCurlByID($url, $params, $selectors)
-	{
-		try {
-			$ch =  curl_init($url);
-			$this->checkCurlOptions($ch);
-			$f = curl_exec($ch);
-			$domdocument = new DOMDocument();
-			$searchPage = mb_convert_encoding($f, 'HTML-ENTITIES', "UTF-8");
-			@$domdocument->loadHTML($searchPage);
-			$dom = new DOMXPath($domdocument);
-			$data=array();
-			$review = array();
-			foreach($params as $param)
-			{
-				$results = $dom->query("//".$this->selector($selectors)."[@id='" . $param . "']");
-		
-				for($i=0; $results->length > $i; $i++) {
-					$review[$i][$param] = $results->item($i)->nodeValue;
-				}
-			}
-			return $review;
-		}catch(Exception $e){
-			throw new Exception("Invalid URL",0,$e);
-		}
-	}
-	
-	/*
-	 * Method to check all class with HTML file and parse to text
-	 */
-	public function checkCurlByClass($url, $params)
-	{
-		try {
-			$ch =  curl_init($url);
-			$this->checkCurlOptions($ch);
-			$f = curl_exec($ch);
-			$domdocument = new DOMDocument();
-			$searchPage = mb_convert_encoding($f, 'HTML-ENTITIES', "UTF-8");
-			@$domdocument->loadHTML($searchPage);
-			$dom = new DOMXPath($domdocument);
-			$data=array();
-			foreach($params as $param)
-			{
-				$results = $dom->query("//*[@class='" . $param . "']");
-				for($i=0; $results->length > $i; $i++) {
-					$review[$i][$param] = $results->item($i)->nodeValue;
-				}
-			}
-			return $review;
-		}catch(Exception $e){
-			throw new Exception("Invalid URL",0,$e);
-		}
-	}
+
 	
 	/*
 	 * Method to check all ID with HTML and parse to text

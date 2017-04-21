@@ -20,21 +20,28 @@ foreach($review as $row)
 */
 
 /*
-$array = $show->checkByClass('https://www.gpw.pl/', ['box']);
+$array = $show->checkByClass('https://www.gpw.pl/', ['iconBhWiadomosci']);
 foreach ($array as $row)
 {
-	echo $row['box'];
+	echo $row['iconBhWiadomosci'];
 }
-*/
 
+*/
 /*
 print_r($show->checkAllId('https://www.gpw.pl/'));
 */
 
-$array = $show->checkAllClass('https://www.gpw.pl/');
+$array = $show->find('class',['iconBhWiadomosci'],'h3','https://www.gpw.pl/');
+foreach($array as $row)
+{
+	echo $row['iconBhWiadomosci'].'<br>';
+}
+
+
+/*$array = $show->checkAllClass('https://www.gpw.pl/');
 foreach($array as $row)
 {
 	echo $row.'<br>';
-}
+}*/
 //$show->curlInitWithParamByTag('http://www.filmweb.pl/', ['ul']);
 ?>
