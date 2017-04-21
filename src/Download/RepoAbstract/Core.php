@@ -1,136 +1,63 @@
 <?php 
 namespace Download\RepoAbstract;
 
-use \DOMDocument;
-use \DOMXPath;
-
-abstract class Core
+class Core
 {
-	
-	public function selector($selectors)
+	protected $class;
+	public function __construct($class)
 	{
-		$sel = isset($selectors) ? $selectors : '*';
-		return $sel;
+		$this->class = $class;
 	}
 	
-	public function what($what)
+	
+	/*
+	 * parse the webside
+	 * $what = string
+	 * $param = array
+	 * $selectors = string
+	 * $url = string
+	 */
+	public function find($url,$what = NULL, $params=NULL, $selectors = NULL)
 	{
-		$when = isset($what) ? $what : '';
-		return $when;
+		return $this->class->findParam($url,$what, $params, $selectors);
 	}
 	
-	public function loop($params=[], $what, $dom,$selectors)
-	{
-		if(is_array($params))
-		{
-			$review = array();
-			foreach((array)$params as $param)
-			{
-				$results = $dom->query("//".$this->selector($selectors)."[@".$this->what($what)."='" . $param . "']");
-			
-			
-				for($i=0; $results->length > $i; $i++) {
-					$review[$i][$param] = $results->item($i)->nodeValue;
-				}
-			}
-			return $review;
-		}
-		else 
-		{
-			$review = array();
-			$result = $dom->query("//*[@".$this->what($what)."]");
-			for($i=0; $result->length > $i; $i++)
-			{
-				$review[] = $result->item($i)->nodeValue.'<br>';
-			}
-			return $review;
-		}
+	/*
+	 * check the webside
+	 * $url = string
+	 */
+	public function check($url){
+		return $this->class->checkCurl();
 		
 	}
-	abstract function checkCurlOptions($ch);
 	
-	public function findParam($url,$what, $params, $selectors)
+	/*
+	 * check the webside
+	 * $url = string
+	 * $param = array assoc
+	 */
+	public function checkWithParam($url,$param)
 	{
-		try {
-			$ch =  curl_init($url);
-			$this->checkCurlOptions($ch);
-			$f = curl_exec($ch);
-			$domdocument = new DOMDocument();
-			$searchPage = mb_convert_encoding($f, 'HTML-ENTITIES', "UTF-8");
-			@$domdocument->loadHTML($searchPage);
-			$dom = new DOMXPath($domdocument);
-
-			return $this->loop($params, $what, $dom,$selectors);
-			
-			
-		}catch(Exception $e){
-			throw new Exception("Invalid URL",0,$e);
-		}
+		return $this->class->checkCurlWithParam($url,$param);
 	}
-	
-	public function checkCurl($url)
-	{
-		try {
-			$ch =  curl_init($url);
-			$this->checkCurlOptions($ch);
-			$f = curl_exec($ch);
-			$domdocument = new DOMDocument();
-			$searchPage = mb_convert_encoding($f, 'HTML-ENTITIES', "UTF-8");
-			@$domdocument->loadHTML($searchPage);
-			$dom = new DOMXPath($domdocument);
-			$results = $dom->query('//*');
-			for($i=0; $results->length > $i; $i++) {
-				$review = $results->item($i)->nodeValue;
-			}
-			return $review;
-		}catch(Exception $e){
-			throw new Exception("Invalid URL",0,$e);
-		}
-	}
-	
-	public function checkCurlWithParam($url, $param)
-	{
-		try {
-			$name = array();
-			$ch = curl_init($url);
-			foreach($param as $key=>$par)
-			{
-				$name[] = '?'.$key.'='.$par;
-			}
-			$implodeParam = implode('',$name);
-			curl_setopt($ch, CURLOPT_URL, $url.''.$implodeParam);
-			curl_close($ch);
-		}catch(Exception $e){
-			throw new Exception("Invalid URL",0,$e);
-		}
-	}
-
 	
 	
 	
 	/*
-	 * Method to check this tag with HTML file and parse to text
+	 * check the webside
+	 * $url = string
+	 * $param = array
 	 */
-	public function checkCurlByTag($url, $params)
+	public function checkByTag($url,$params)
 	{
-		try {
-			$ch =  curl_init($url);
-			$this->checkCurlOptions($ch);
-			$f = curl_exec($ch);
-			$dom = new DOMDocument();
-			@$dom->loadHTML($f);
-			$data=array();
-		
-			foreach($params as $param)
-			{
-				$data = $dom->getElementsByTagName($param);
-				$html2 = $dom->saveHTML($data);
-				echo $html2;
-			}
-		}catch(Exception $e){
-			throw new Exception("Invalid URL",0,$e);
-		}
+		return $this->class->checkCurlByTag($url, $params);
 	}
-
+	
+	public function example($param)
+	{
+		return $this->class->ex($param);
+	}
+	
+	
 }
 ?>
