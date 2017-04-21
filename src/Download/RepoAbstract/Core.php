@@ -5,7 +5,7 @@ use \DOMDocument;
 use \DOMXPath;
 use Download\REST\DownloadREST;
 
-abstract class Download extends DownloadREST
+abstract class Core
 {
 	
 	public function selector($selectors)
