@@ -1,9 +1,9 @@
 <?php 
-use src\Client;
+use src\Parser;
 
 require_once 'src/bootstrap.php';
 
-$show = new Client();
+$show = new Parser();
 //echo $show->check('http://www.sklep.bielawa.pl');
 //$show->curlInitWithParam('www.sklep.bielawa.pl/show_one_product.php/',['id'=>'176']);
 
