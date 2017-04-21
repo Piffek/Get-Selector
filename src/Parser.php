@@ -71,9 +71,9 @@ class Parser extends Core implements Checking
 	 * $selectors = string
 	 * $url = string
 	 */
-	public function find($what = NULL, $params = NULL, $selectors = NULL, $url)
+	public function find($url,$what = NULL, $params=NULL, $selectors = NULL)
 	{
-		return  $this->findParam($what, $params, $selectors, $url);
+		return  $this->findParam($url,$what, $params, $selectors);
 	}
 	
 }

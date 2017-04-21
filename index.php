@@ -31,10 +31,10 @@ foreach ($array as $row)
 print_r($show->checkAllId('https://www.gpw.pl/'));
 */
 
-$array = $show->find('class',['iconBhWiadomosci'],'h3','https://www.gpw.pl/');
+$array = $show->find('https://www.gpw.pl/','class');
 foreach($array as $row)
 {
-	echo $row['iconBhWiadomosci'].'<br>';
+	echo $row.'<br>';
 }
 
 
