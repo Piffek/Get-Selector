@@ -41,7 +41,7 @@ class Rest extends Core implements Checking
 	 */
 	public function checkById($url,$params,$selectors= NULL)
 	{
-		return $this->checkCurlById($url, $params, $selectors=NULL);
+		return $this->checkCurlById($url, $params, $selectors);
 	}
 	
 	
@@ -50,9 +50,9 @@ class Rest extends Core implements Checking
 	 * $url = string
 	 * $param = array
 	 */
-	public function checkByClass($url,$params, $selectors = NULL)
+	public function checkByClass($url, $param, $selectors = NULL)
 	{
-		return  $this->checkCurlByClass($url, $params, $selectors = NULL);
+		return  $this->checkCurlByClass($url, $param, $selectors);
 	}
 	
 	/*
