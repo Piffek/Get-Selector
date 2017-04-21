@@ -31,17 +31,12 @@ foreach ($array as $row)
 print_r($show->checkAllId('https://www.gpw.pl/'));
 */
 
-$array = $show->find('https://www.gpw.pl/','class');
+$array = $show->find('https://www.gpw.pl/','id', ['mainMenu']);
 foreach($array as $row)
 {
-	echo $row.'<br>';
+	echo $row['mainMenu'].'<br>';
 }
 
 
-/*$array = $show->checkAllClass('https://www.gpw.pl/');
-foreach($array as $row)
-{
-	echo $row.'<br>';
-}*/
 //$show->curlInitWithParamByTag('http://www.filmweb.pl/', ['ul']);
 ?>

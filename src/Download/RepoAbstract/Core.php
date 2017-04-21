@@ -38,7 +38,7 @@ abstract class Core
 		else 
 		{
 			$review = array();
-			$result = $dom->query("//*[@class]");
+			$result = $dom->query("//*[@".$this->what($what)."]");
 			for($i=0; $result->length > $i; $i++)
 			{
 				$review[] = $result->item($i)->nodeValue.'<br>';
@@ -106,51 +106,7 @@ abstract class Core
 	}
 
 	
-	/*
-	 * Method to check all ID with HTML and parse to text
-	 */
-	public function checkCurlAllId($url)
-	{
-		try {
-			$ch =  curl_init($url);
-			$this->checkCurlOptions($ch);
-			$f = curl_exec($ch);
-			$domdocument =  new DOMDocument();
-			@$domdocument->loadHTML($f);
-			$dom = new DOMXPath($domdocument);
-			$result = $dom->query("//*[@id]");
-			for($i=0; $result->length > $i; $i++)
-			{
-				$review[] = $result->item($i)->nodeValue.'<br>';
-			}
-			return $review;
-		}catch (\Exception $e){
-			throw new \Exception("Invalid URL",0,$e);
-		}
-	}
 	
-	/*
-	 * Method to check all CLASS with HTML and parse to text
-	 */
-	public function checkCurlAllClass($url)
-	{
-		try {
-			$ch =  curl_init($url);
-			$this->checkCurlOptions($ch);
-			$f = curl_exec($ch);
-			$domdocument =  new DOMDocument();
-			@$domdocument->loadHTML($f);
-			$dom = new DOMXPath($domdocument);
-			$result = $dom->query("//*[@class]");
-			for($i=0; $result->length > $i; $i++)
-			{
-				$review[] = $result->item($i)->nodeValue.'<br>';
-			}
-			return $review;
-		}catch (\Exception $e){
-			throw new \Exception("Invalid URL",0,$e);
-		}
-	}
 	
 	/*
 	 * Method to check this tag with HTML file and parse to text

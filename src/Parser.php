@@ -34,25 +34,7 @@ class Parser extends Core implements Checking
 		return $this->checkCurlWithParam($url,$param);
 	}
 	
-	
-	
-	/*
-	 * check the webside
-	 * $url = string
-	 */
-	public function checkAllId($url)
-	{
-		return $this->checkCurlAllId($url);
-	}
-	
-	/*
-	 * check the webside
-	 * $url = string
-	 */
-	public function checkAllClass($url)
-	{
-		return $this->checkCurlAllClass($url);
-	}
+
 	
 	/*
 	 * check the webside
