@@ -1,19 +1,9 @@
-<?php 
-use src\Parser;
-use Download\RepoAbstract\Core;
-use src\Rest;
-require_once 'src/bootstrap.php';
+<?php
 
+require_once('./vendor/autoload.php');
 
-$show = new Core(new Parser);
+$parser = new Piffek\WebsiteParser\Parser(new GuzzleHttp\Client, new Piffek\WebsiteParser\HtmlParser);
+$page = $parser->parse('https://www.gpw.pl');
+$element = $page->getElementById('mainMenu');
 
-$array = $show->find('https://www.gpw.pl/','id', ['mainMenu']);
-foreach($array as $row)
-{
-	echo $row['mainMenu'].'<br>';
-}
-
-$showRest = new Core(new Rest);
-$showRest->example('exampleREST');
-
-?>
+echo $element->textContent;
