@@ -3,10 +3,10 @@ namespace Src\Parser;
 
 class Trigger
 {
-	protected $class;
-	public function __construct($class)
+	protected $parser;
+	public function __construct(Parser $parser)
 	{
-		$this->class = $class;
+		$this->parser= $parser;
 	}
 	
 	
@@ -20,7 +20,7 @@ class Trigger
 	 */
 	public function find(string $url,$what = NULL, $params=NULL, $selectors = NULL)
 	{
-		return $this->class->findParam($url,$what, $params, $selectors);
+		return $this->parser->findParam($url,$what, $params, $selectors);
 	}
 	
 }
