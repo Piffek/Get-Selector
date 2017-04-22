@@ -1,12 +1,53 @@
 <?php 
-namespace src;
+namespace Src\Parser;
 use \DOMDocument;
 use \DOMXPath;
-use src\Helper;
+use Src\Parser\ParserInterface;
+use Src\Parser\ParsingException;
 
-class Parser extends Helper 
+class Parser extends ParsingException implements ParserInterface
 {
 
+	public function selector($selectors)
+	{
+		$sel = isset($selectors) ? $selectors : '*';
+		return $sel;
+	}
+	
+	public function what($what)
+	{
+		$when = isset($what) ? $what : '';
+		return $when;
+	}
+	
+	public function loop($params=[], $what, $dom,$selectors)
+	{
+		if(is_array($params))
+		{
+			$review = array();
+			foreach((array)$params as $param)
+			{
+				$results = $dom->query("//".$this->selector($selectors)."[@".$this->what($what)."='" . $param . "']");
+				
+				
+				for($i=0; $results->length > $i; $i++) {
+					$review[$i][$param] = $results->item($i)->nodeValue;
+				}
+			}
+			return $review;
+		}
+		else
+		{
+			$review = array();
+			$result = $dom->query("//*[@".$this->what($what)."]");
+			for($i=0; $result->length > $i; $i++)
+			{
+				$review[] = $result->item($i)->nodeValue.'<br>';
+			}
+			return $review;
+		}
+		
+	}
 	
 	public function checkCurlOptions($ch)
 	{
@@ -18,7 +59,7 @@ class Parser extends Helper
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 	}
 	
-	public function findParam($url,$what, $params, $selectors)
+	public function findParam(string $url,$what, $params, $selectors)
 	{
 		try {
 			$ch =  curl_init($url);
@@ -32,8 +73,12 @@ class Parser extends Helper
 			return $this->loop($params, $what, $dom,$selectors);
 			
 			
-		}catch(Exception $e){
-			throw new Exception("Invalid URL",0,$e);
+		} catch (DOMException $e) {
+			throw new ParsingException('Invalid HTML provided', 0, $e);
+		} catch (ClientException $e) {
+			throw new ParsingException(sprintf('Cannot access page at [%s]', $url), 0, $e);
+		} catch (RuntimeException $e) {
+			throw new ParsingException('Cannot read page contents', 0, $e);
 		}
 	}
 	

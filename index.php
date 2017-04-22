@@ -1,11 +1,9 @@
 <?php 
-use src\Parser;
-use Download\RepoAbstract\Core;
-use src\Rest;
+
 require_once 'src/bootstrap.php';
 
 
-$show = new Core(new Parser);
+$show = new Src\Parser\Trigger(new Src\Parser\Parser());
 
 $array = $show->find('https://www.gpw.pl/','id', ['mainMenu']);
 foreach($array as $row)
@@ -13,7 +11,7 @@ foreach($array as $row)
 	echo $row['mainMenu'].'<br>';
 }
 
-$showRest = new Core(new Rest);
+$showRest = new Download\RepoAbstract\Trigger(new src\Rest);
 $showRest->example('exampleREST');
 
 ?>
