@@ -1,10 +1,10 @@
 {
 	"autoload" : {
 		"psr-4" : {
-			"Download\\" : "src/Download",
-			"src\\" : "src"
+			"Piffek\\WebsiteParser\\" : "src"
 		}
 	},
 	"require" : {
+		"guzzlehttp/guzzle": "^6.2"
 	}
 }
