@@ -1,11 +1,12 @@
 <?php 
 namespace Src\Parser;
-use \DOMDocument;
+use DOMDocument;
 use \DOMXPath;
 use Src\Parser\ParserInterface;
-use Src\Parser\ParsingException;
 
-class Parser extends ParsingException implements ParserInterface
+
+
+class Parser implements ParserInterface
 {
 
 	public function selector($selectors)
@@ -61,89 +62,17 @@ class Parser extends ParsingException implements ParserInterface
 	
 	public function findParam(string $url,$what, $params, $selectors)
 	{
-		try {
+
 			$ch =  curl_init($url);
 			$this->checkCurlOptions($ch);
 			$f = curl_exec($ch);
-			$domdocument = new DOMDocument();
+			$domdocument = new DOMDocument;
 			$searchPage = mb_convert_encoding($f, 'HTML-ENTITIES', "UTF-8");
 			@$domdocument->loadHTML($searchPage);
 			$dom = new DOMXPath($domdocument);
 			
-			return $this->loop($params, $what, $dom,$selectors);
+			return $this->loop($params, $what, $dom, $selectors);
 			
-			
-		} catch (DOMException $e) {
-			throw new ParsingException('Invalid HTML provided', 0, $e);
-		} catch (ClientException $e) {
-			throw new ParsingException(sprintf('Cannot access page at [%s]', $url), 0, $e);
-		} catch (RuntimeException $e) {
-			throw new ParsingException('Cannot read page contents', 0, $e);
-		}
-	}
-	
-	public function checkCurl($url)
-	{
-		try {
-			$ch =  curl_init($url);
-			$this->checkCurlOptions($ch);
-			$f = curl_exec($ch);
-			$domdocument = new DOMDocument();
-			$searchPage = mb_convert_encoding($f, 'HTML-ENTITIES', "UTF-8");
-			@$domdocument->loadHTML($searchPage);
-			$dom = new DOMXPath($domdocument);
-			$results = $dom->query('//*');
-			for($i=0; $results->length > $i; $i++) {
-				$review = $results->item($i)->nodeValue;
-			}
-			return $review;
-		}catch(Exception $e){
-			throw new Exception("Invalid URL",0,$e);
-		}
-	}
-	
-	public function checkCurlWithParam($url, $param)
-	{
-		try {
-			$name = array();
-			$ch = curl_init($url);
-			foreach($param as $key=>$par)
-			{
-				$name[] = '?'.$key.'='.$par;
-			}
-			$implodeParam = implode('',$name);
-			curl_setopt($ch, CURLOPT_URL, $url.''.$implodeParam);
-			curl_close($ch);
-		}catch(Exception $e){
-			throw new Exception("Invalid URL",0,$e);
-		}
-	}
-	
-	
-	
-	
-	/*
-	 * Method to check this tag with HTML file and parse to text
-	 */
-	public function checkCurlByTag($url, $params)
-	{
-		try {
-			$ch =  curl_init($url);
-			$this->checkCurlOptions($ch);
-			$f = curl_exec($ch);
-			$dom = new DOMDocument();
-			@$dom->loadHTML($f);
-			$data=array();
-			
-			foreach($params as $param)
-			{
-				$data = $dom->getElementsByTagName($param);
-				$html2 = $dom->saveHTML($data);
-				echo $html2;
-			}
-		}catch(Exception $e){
-			throw new Exception("Invalid URL",0,$e);
-		}
 	}
 	
 	

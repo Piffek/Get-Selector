@@ -11,7 +11,5 @@ foreach($array as $row)
 	echo $row['mainMenu'].'<br>';
 }
 
-$showRest = new Download\RepoAbstract\Trigger(new src\Rest);
-$showRest->example('exampleREST');
 
 ?>
