@@ -1,35 +1,9 @@
 <?php 
-use src\Parser;
 
 require_once 'src/bootstrap.php';
 
-$show = new Parser();
-//echo $show->check('http://www.sklep.bielawa.pl');
-//$show->curlInitWithParam('www.sklep.bielawa.pl/show_one_product.php/',['id'=>'176']);
 
-/*$review = $show->checkByID('https://www.gpw.pl/', ['mainMenu', 'header' ]);
-foreach($review as $row)
-{
-	echo $row['mainMenu'].'<br>';
-}
-
-foreach($review as $row)
-{
-	echo $row['header'].'<br>';
-}
-*/
-
-/*
-$array = $show->checkByClass('https://www.gpw.pl/', ['iconBhWiadomosci']);
-foreach ($array as $row)
-{
-	echo $row['iconBhWiadomosci'];
-}
-
-*/
-/*
-print_r($show->checkAllId('https://www.gpw.pl/'));
-*/
+$show = new Src\Parser\Trigger(new Src\Parser\Parser());
 
 $array = $show->find('https://www.gpw.pl/','id', ['mainMenu','grupaKapitalowa']);
 foreach($array as $row)
@@ -41,6 +15,7 @@ foreach($array as $row)
 	echo $row['grupaKapitalowa'].'<br>';
 }
 
+$showRest = new Download\RepoAbstract\Trigger(new src\Rest);
+$showRest->example('exampleREST');
 
-//$show->curlInitWithParamByTag('http://www.filmweb.pl/', ['ul']);
 ?>

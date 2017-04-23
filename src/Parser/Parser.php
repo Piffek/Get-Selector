@@ -1,12 +1,13 @@
 <?php 
-namespace Download\RepoAbstract;
-
+namespace Src\Parser;
 use \DOMDocument;
 use \DOMXPath;
+use Src\Parser\ParserInterface;
+use Src\Parser\ParsingException;
 
-abstract class Core
+class Parser extends ParsingException implements ParserInterface
 {
-	
+
 	public function selector($selectors)
 	{
 		$sel = isset($selectors) ? $selectors : '*';
@@ -27,15 +28,15 @@ abstract class Core
 			foreach((array)$params as $param)
 			{
 				$results = $dom->query("//".$this->selector($selectors)."[@".$this->what($what)."='" . $param . "']");
-			
-			
+				
+				
 				for($i=0; $results->length > $i; $i++) {
 					$review[$i][$param] = $results->item($i)->nodeValue;
 				}
 			}
 			return $review;
 		}
-		else 
+		else
 		{
 			$review = array();
 			$result = $dom->query("//*[@".$this->what($what)."]");
@@ -47,9 +48,18 @@ abstract class Core
 		}
 		
 	}
-	abstract function checkCurlOptions($ch);
 	
-	public function findParam($url,$what, $params, $selectors)
+	public function checkCurlOptions($ch)
+	{
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+	}
+	
+	public function findParam(string $url,$what, $params, $selectors)
 	{
 		try {
 			$ch =  curl_init($url);
@@ -59,12 +69,16 @@ abstract class Core
 			$searchPage = mb_convert_encoding($f, 'HTML-ENTITIES', "UTF-8");
 			@$domdocument->loadHTML($searchPage);
 			$dom = new DOMXPath($domdocument);
-
+			
 			return $this->loop($params, $what, $dom,$selectors);
 			
 			
-		}catch(Exception $e){
-			throw new Exception("Invalid URL",0,$e);
+		} catch (DOMException $e) {
+			throw new ParsingException('Invalid HTML provided', 0, $e);
+		} catch (ClientException $e) {
+			throw new ParsingException(sprintf('Cannot access page at [%s]', $url), 0, $e);
+		} catch (RuntimeException $e) {
+			throw new ParsingException('Cannot read page contents', 0, $e);
 		}
 	}
 	
@@ -104,7 +118,7 @@ abstract class Core
 			throw new Exception("Invalid URL",0,$e);
 		}
 	}
-
+	
 	
 	
 	
@@ -120,7 +134,7 @@ abstract class Core
 			$dom = new DOMDocument();
 			@$dom->loadHTML($f);
 			$data=array();
-		
+			
 			foreach($params as $param)
 			{
 				$data = $dom->getElementsByTagName($param);
@@ -131,6 +145,9 @@ abstract class Core
 			throw new Exception("Invalid URL",0,$e);
 		}
 	}
-
+	
+	
+	
 }
+
 ?>
