@@ -31,10 +31,14 @@ foreach ($array as $row)
 print_r($show->checkAllId('https://www.gpw.pl/'));
 */
 
-$array = $show->find('https://www.gpw.pl/','id', ['mainMenu']);
+$array = $show->find('https://www.gpw.pl/','id', ['mainMenu','grupaKapitalowa']);
 foreach($array as $row)
 {
 	echo $row['mainMenu'].'<br>';
+}
+foreach($array as $row)
+{
+	echo $row['grupaKapitalowa'].'<br>';
 }
 
 

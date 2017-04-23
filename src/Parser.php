@@ -4,6 +4,10 @@ use Download\RepoAbstract\Core;
 use Download\Checking;
 class Parser extends Core implements Checking
 {
+	public function __construct()
+	{
+		
+	}
 	
 	public function checkCurlOptions($ch)
 	{
