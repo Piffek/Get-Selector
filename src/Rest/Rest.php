@@ -1,11 +1,12 @@
 <?php 
-namespace src;
+namespace Src\Rest;
+use Src\Rest\RestInterface;
 
-class Rest 
+class Rest implements RestInterface
 {
-	public function ex($param)
+	public function findHTTP(string $method, string $url)
 	{
-		echo $param;
+		echo $method;
 	}
 
 	
