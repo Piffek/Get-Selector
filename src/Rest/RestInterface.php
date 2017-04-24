@@ -10,6 +10,6 @@ interface RestInterface
 	 * @param  string $url
 	 * 
 	 */
-	public function findHTTP(string $method, string $url);
+	public function find(string $url, string $method);
 }
 ?>

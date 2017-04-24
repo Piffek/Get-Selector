@@ -12,9 +12,9 @@ foreach($array as $row)
 }
 */
 
-$rest = new Src\Rest\Trigger(new Src\Rest\Rest);
+$rest = new Src\Rest\Trigger(new Src\Rest\Rest('findHTTP'));
 //$restHTML = $rest->find('GET', 'http://sklep.bielawa.pl/show_one_product.php?id=176');
-$restHTML = $rest->getHeader('http://sklep.bielawa.pl/show_one_product.php?id=176');
+$rest = $rest->find('http://stackoverflow.com', 'GET');
 
 
 
