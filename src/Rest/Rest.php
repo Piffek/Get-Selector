@@ -15,7 +15,19 @@ class Rest implements RestInterface
 		));
 		$resp = curl_exec($curl);
 		curl_close($curl);
-		return $resp;
+
+	}
+	
+	public function header(string $url)
+	{
+		$curl = curl_init();
+		curl_setopt_array($curl, array(
+				CURLOPT_NOBODY => 1,
+				CURLOPT_HEADER => 1,
+				CURLOPT_URL => $url,
+		));
+		$resp = curl_exec($curl);
+		curl_close($curl);
 	}
 
 	

@@ -14,5 +14,10 @@ class Trigger extends Exception
 		return $this->rest->findHTTP($method, $url);
 	}
 	
+	public function getHeader(string $url)
+	{
+		return $this->rest->header($url);
+	}
+	
 }
 ?>
