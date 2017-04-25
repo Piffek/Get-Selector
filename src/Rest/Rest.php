@@ -46,6 +46,12 @@ class Rest
 	public function info($url)
 	{
 		$curl = curl_init($url);
+		curl_setopt_array($curl, array(
+				CURLOPT_RETURNTRANSFER => 1,
+				CURLOPT_URL => $url,
+				CURLOPT_TIMEOUT, 5
+		));
+		curl_exec($curl);
 		echo '<pre>';
 		print_r(curl_getinfo($curl));
 		echo '</pre>';
