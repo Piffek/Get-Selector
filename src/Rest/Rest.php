@@ -1,7 +1,5 @@
 <?php 
 namespace Src\Rest;
-use Src\Rest\RestInterface;
-
 
 class Rest
 {
@@ -10,16 +8,17 @@ class Rest
 		$this->function = $function;
 	}
 	
-	public function findMethod($url, $method)
-	{
-		if(method_exists(self::class,$this->function))
-		{
+	public function findMethod($url, $method){
+		
+		if(method_exists(self::class,$this->function)){
+			
 			return $this->{$this->function}($url, $method);
 		}
 	}
 	
-	public function findHTTP(string $url ,string $method)
-	{
+	
+	public function findHTTP(string $url, string $method){
+		
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
 				CURLOPT_ENCODING => 'deflate',
@@ -29,11 +28,10 @@ class Rest
 		));
 		$resp = curl_exec($curl);
 		curl_close($curl);
-
 	}
 	
-	public function header(string $url)
-	{
+	public function header(string $url){
+		
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
 				CURLOPT_NOBODY => 1,
@@ -43,8 +41,9 @@ class Rest
 		$resp = curl_exec($curl);
 		curl_close($curl);
 	}
-	public function info($url)
-	{
+	
+	public function info($url){
+		
 		$curl = curl_init($url);
 		curl_setopt_array($curl, array(
 				CURLOPT_RETURNTRANSFER => 1,
@@ -57,8 +56,4 @@ class Rest
 		echo '</pre>';
 		curl_close($curl);
 	}
-
-	
 }
-
-?>

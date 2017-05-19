@@ -1,8 +1,9 @@
 <?php 
 namespace Src\Parser;
 use Src\Exception;
+use Src\Parser\ParserInterface;
 
-class Trigger extends Exception
+class Trigger extends Exception implements ParserInterface
 {
 	protected $parser;
 	public function __construct(Parser $parser)
@@ -19,11 +20,10 @@ class Trigger extends Exception
 	 *
 	 * @throws \Piffek\WebsiteParser\ParsingException
 	 */
-	public function find(string $url, $what = NULL, $params=NULL, $selectors = NULL)
-	{
+	public function find(string $url = NULL, $what = NULL, $params=NULL, $selectors = NULL){
 		try {
 			
-			return $this->parser->findParam($url,$what, $params, $selectors);
+			return $this->parser->findMethod($url,$what, $params, $selectors);
 			
 		} catch (DOMException $e) {
 			throw new ParsingException('Invalid HTML provided', 0, $e);
@@ -35,4 +35,3 @@ class Trigger extends Exception
 	}
 	
 }
-?>

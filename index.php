@@ -13,10 +13,16 @@ foreach($array as $row)
 */
 
 $rest = new Src\Rest\Trigger(new Src\Rest\Rest('info'));
-//$restHTML = $rest->find('GET', 'http://sklep.bielawa.pl/show_one_product.php?id=176');
+
 $rest = $rest->find('http://sklep.bielawa.pl');
 
+$parser = new Src\Parser\Trigger(new Src\Parser\Parser('findParam'));
 
+$array = $parser->find('https://www.gpw.pl/', 'id');
+foreach($array as $row)
+{
+	echo $row.'<br>';
+}
 
 
 ?>

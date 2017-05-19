@@ -13,7 +13,7 @@ interface ParserInterface
 	 * @param  string $selectors
 	 * @return \DOMDocument
 	 */
-	public function findParam(string $url,$what, $params, $selectors);
+	public function find(string $url,$what, $params, $selectors);
 }
 
 ?>

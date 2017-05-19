@@ -2,56 +2,73 @@
 namespace Src\Parser;
 use DOMDocument;
 use \DOMXPath;
-use Src\Parser\ParserInterface;
 
-
-
-class Parser implements ParserInterface
+class Parser
 {
+	
+	public function __construct($function){
+		$this->function = $function;
+	}
+	
+	public function findMethod($url,$what, $params, $selectors){
+		
+		if(method_exists(self::class, $this->function)){
+			
+			return $this->{$this->function}($url, $what, $params, $selectors);
+			
+		}
+		
+	}
+	
+	public function example(){
+		return 'cos';
+	}
 
-	public function selector($selectors)
-	{
+	public function selector($selectors){
 		$sel = isset($selectors) ? $selectors : '*';
+		
 		return $sel;
 	}
 	
-	public function what($what)
-	{
+	public function what($what){
+		
 		$when = isset($what) ? $what : '';
+		
 		return $when;
 	}
 	
-	public function loop($params=[], $what, $dom,$selectors)
-	{
-		if(is_array($params))
-		{
+	public function loop($params=[], $what, $dom, $selectors){
+		if(is_array($params)){
+			
 			$review = array();
-			foreach((array)$params as $param)
-			{
+			foreach((array)$params as $param){
+				
 				$results = $dom->query("//".$this->selector($selectors)."[@".$this->what($what)."='" . $param . "']");
 				
-				
 				for($i=0; $results->length > $i; $i++) {
+					
 					$review[$i][$param] = $results->item($i)->nodeValue;
+					
 				}
 			}
 			return $review;
 		}
-		else
-		{
+		else{
+			
 			$review = array();
 			$result = $dom->query("//*[@".$this->what($what)."]");
-			for($i=0; $result->length > $i; $i++)
-			{
+			for($i=0; $result->length > $i; $i++){
+				
 				$review[] = $result->item($i)->nodeValue.'<br>';
+				
 			}
 			return $review;
 		}
 		
 	}
 	
-	public function checkCurlOptions($ch)
-	{
+	public function checkCurlOptions($ch){
+		
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 		curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
@@ -60,9 +77,8 @@ class Parser implements ParserInterface
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 	}
 	
-	public function findParam(string $url,$what, $params, $selectors)
-	{
-
+	public function findParam(string $url,$what, $params, $selectors){
+		
 			$ch =  curl_init($url);
 			$this->checkCurlOptions($ch);
 			$f = curl_exec($ch);
@@ -71,12 +87,9 @@ class Parser implements ParserInterface
 			@$domdocument->loadHTML($searchPage);
 			$dom = new DOMXPath($domdocument);
 			
-			return $this->loop($params, $what, $dom, $selectors);
-			
+			return $this->loop($params, $what, $dom, $selectors);	
 	}
 	
 	
 	
 }
-
-?>
