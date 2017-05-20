@@ -16,9 +16,9 @@ $rest = new Src\Rest\Trigger(new Src\Rest\Rest('info'));
 
 $rest = $rest->find('http://sklep.bielawa.pl');
 
-$parser = new Src\Parser\Trigger(new Src\Parser\Parser('findParam'));
+$parser = new Src\Parser\Trigger(new Src\Parser\FindParam());
 
-$array = $parser->find('https://www.gpw.pl/', 'id');
+$array = $parser->checkMethod('https://www.gpw.pl/', 'id');
 foreach($array as $row)
 {
 	echo $row.'<br>';

@@ -1,28 +1,9 @@
 <?php 
 namespace Src\Parser;
-use DOMDocument;
-use \DOMXPath;
+
 
 class Parser
 {
-	
-	public function __construct($function){
-		$this->function = $function;
-	}
-	
-	public function findMethod($url,$what, $params, $selectors){
-		
-		if(method_exists(self::class, $this->function)){
-			
-			return $this->{$this->function}($url, $what, $params, $selectors);
-			
-		}
-		
-	}
-	
-	public function example(){
-		return 'cos';
-	}
 
 	public function selector($selectors){
 		$sel = isset($selectors) ? $selectors : '*';
@@ -77,18 +58,7 @@ class Parser
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 	}
 	
-	public function findParam(string $url,$what, $params, $selectors){
-		
-			$ch =  curl_init($url);
-			$this->checkCurlOptions($ch);
-			$f = curl_exec($ch);
-			$domdocument = new DOMDocument;
-			$searchPage = mb_convert_encoding($f, 'HTML-ENTITIES', "UTF-8");
-			@$domdocument->loadHTML($searchPage);
-			$dom = new DOMXPath($domdocument);
-			
-			return $this->loop($params, $what, $dom, $selectors);	
-	}
+	
 	
 	
 	
