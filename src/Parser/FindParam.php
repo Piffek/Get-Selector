@@ -5,7 +5,7 @@ use \DOMXPath;
 use Src\Parser\Parser;
 use Src\Parser\ParserInterface;
 
-class FindParam extends Parser implements ParserInterface
+class FindParam extends HelperForParser implements ParserInterface
 {
 	public function find(string $url,$what, $params, $selectors){
 	

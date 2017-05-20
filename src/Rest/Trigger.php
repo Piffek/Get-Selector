@@ -2,18 +2,20 @@
 namespace Src\Rest;
 use Src\Rest\Rest;
 use Src\Exception;
+use Src\Rest\RestInterface;
 
-class Trigger extends Exception  implements RestInterface
+class Trigger extends Exception
 {
-	public function __construct(Rest $rest){
+	protected $rest;
+	public function __construct(RestInterface $rest){
 		
 		$this->rest = $rest;
 		
 	}
 	
-	public function find(string $url = NULL ,string $method = NULL){
+	public function checkMethod($url = NULL, $method = NULL){
 		
-		return $this->rest->findMethod($url, $method);
+		return $this->rest->find($url, $method);
 		
 	}
 	

@@ -12,9 +12,9 @@ foreach($array as $row)
 }
 */
 
-$rest = new Src\Rest\Trigger(new Src\Rest\Rest('info'));
+$rest = new Src\Rest\Trigger(new Src\Rest\FindHttp());
 
-$rest = $rest->find('http://sklep.bielawa.pl');
+$rest->checkMethod('http://sklep.bielawa.pl');
 
 $parser = new Src\Parser\Trigger(new Src\Parser\FindParam());
 
@@ -23,6 +23,7 @@ foreach($array as $row)
 {
 	echo $row.'<br>';
 }
+
 
 
 ?>

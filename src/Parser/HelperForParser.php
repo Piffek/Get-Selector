@@ -2,7 +2,7 @@
 namespace Src\Parser;
 
 
-class Parser
+class HelperForParser
 {
 
 	public function selector($selectors){
