@@ -1,6 +1,5 @@
 <?php 
 namespace Src\Rest;
-use Src\Rest\Rest;
 use Src\Exception;
 use Src\Rest\RestInterface;
 
@@ -14,9 +13,7 @@ class Trigger extends Exception
 	}
 	
 	public function checkMethod($url = NULL, $method = NULL){
-		
 		return $this->rest->find($url, $method);
-		
 	}
 	
 	

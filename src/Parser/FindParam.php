@@ -2,7 +2,6 @@
 namespace Src\Parser;
 use DOMDocument;
 use \DOMXPath;
-use Src\Parser\Parser;
 use Src\Parser\ParserInterface;
 
 class FindParam extends HelperForParser implements ParserInterface
