@@ -20,7 +20,7 @@ class Trigger extends Exception
 	 *
 	 * @throws \Piffek\WebsiteParser\ParsingException
 	 */
-	public function checkMethod(string $url = NULL, $what = NULL, $params=NULL, $selectors = NULL){
+	public function get(string $url = NULL, $what = NULL, $params=NULL, $selectors = NULL){
 			return $this->parser->find($url,$what, $params, $selectors);
 	}
 	
