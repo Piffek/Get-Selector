@@ -13,10 +13,6 @@ download this repository by add this to your composer.json
     "Piffek/Get-Selector" : "dev-master"
 }
 ```
-```php
-$array = $parser->get('https://webpage.pl/', 'id', ['this_id']);
-echo $array[0]['this_id'];
-```
 <br>
 https://webpage.pl/ - page of with you want get element. <br>
 id - selector. <br>
