@@ -2,7 +2,7 @@
 	"name" : "Piffek/Get-Selector",
 	"minimum-stability" : "dev",
 	"require" : {
-		"Piffek/Get-Selector" : "*"
+		"Piffek/Get-Selector" : "1.0.*"
 	},
 	"autoload" : {
 		"psr-4" : {
