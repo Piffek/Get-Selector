@@ -4,14 +4,14 @@ download this repository by add this to your composer.json
 
 ```json
 "repositories" : [
-        {
-			"type" : "vcs",
-			"url" : "https://github.com/Piffek/Get-Selector.git"
-		}
+{
+    "type" : "vcs",
+    "url" : "https://github.com/Piffek/Get-Selector.git"
+}
 	],
-	"require" : {
-		"Piffek/Get-Selector" : "dev-master"
-	}
+"require" : {
+    "Piffek/Get-Selector" : "dev-master"
+}
 ```
 ```php
 $array = $parser->get('https://webpage.pl/', 'id', ['this_id']);
