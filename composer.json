@@ -1,6 +1,7 @@
 {
 	"name" : "Piffek/Get-Selector",
 	"minimum-stability" : "dev",
+	"prefer-stable" : true,
 	"autoload" : {
 		"psr-4" : {
 			"Src\\" : "src",
