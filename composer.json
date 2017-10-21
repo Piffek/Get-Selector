@@ -1,4 +1,5 @@
 {
+    "name": "Piffek/Get-Selector",
 	"autoload" : {
 		"psr-4" : {
 			"Src\\" : "src",
