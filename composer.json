@@ -1,6 +1,5 @@
 {
 	"name" : "Piffek/Get-Selector",
-	"minimum-stability" : "dev",
 	"require" : {
 		"Piffek/Get-Selector" : "1.0.*"
 	},
