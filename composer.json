@@ -1,8 +1,8 @@
 {
 	"name" : "Piffek/Get-Selector",
-	"minimum-stability" : "stable",
+	"minimum-stability" : "dev",
 	"require" : {
-		"Piffek/Get-Selector" : "@dev"
+		"Piffek/Get-Selector" : "dev"
 	},
 	"autoload" : {
 		"psr-4" : {
