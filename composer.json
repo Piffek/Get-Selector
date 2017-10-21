@@ -1,6 +1,6 @@
 {
 	"name" : "Piffek/Get-Selector",
-	"minimum-stability" : "@dev",
+	"minimum-stability" : "stable",
 	"require" : {
 		"Piffek/Get-Selector" : "@dev"
 	},
