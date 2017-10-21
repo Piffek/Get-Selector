@@ -1,5 +1,10 @@
 {
-    "name": "Piffek/Get-Selector",
+	"name" : "Piffek/Get-Selector",
+	"extra" : {
+		"branch-alias" : {
+			"dev-master" : "1.10.x-dev"
+		}
+	},
 	"autoload" : {
 		"psr-4" : {
 			"Src\\" : "src",
