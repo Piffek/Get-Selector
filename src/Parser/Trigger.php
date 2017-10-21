@@ -1,6 +1,7 @@
 <?php 
-namespace Src\Parser;
-use Src\Exception;
+namespace Piffek\WebsiteParser;
+use Piffek\WebsiteParser\Exception;
+use Piffek\WebsiteParser\ParserInterface;
 
 
 class Trigger extends Exception

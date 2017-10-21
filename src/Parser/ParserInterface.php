@@ -1,5 +1,5 @@
 <?php 
-namespace Src\Parser;
+namespace Piffek\WebsiteParser;
 use DOMDocument;
 
 interface ParserInterface

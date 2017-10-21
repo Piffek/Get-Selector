@@ -1,5 +1,5 @@
 <?php 
-namespace Src;
+namespace Piffek\WebsiteParser;
 class Exception extends \RuntimeException
 {
     //

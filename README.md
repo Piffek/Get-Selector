@@ -20,7 +20,7 @@ this_id - id of element, example(id="this_id").
 
 if you get class
 ```php
-$array = $parser->get('https://webpage.pl/', 'class', ['this_id']);
+$array = $parser->get('https://webpage.pl/', 'id', ['this_id']);
 echo $array[0]['this_id'];
 ```
 

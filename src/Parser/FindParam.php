@@ -1,8 +1,7 @@
 <?php 
-namespace Src\Parser;
+namespace Piffek\WebsiteParser;
 use DOMDocument;
-use \DOMXPath;
-use Src\Parser\ParserInterface;
+use DOMXPath;
 
 class FindParam extends HelperForParser implements ParserInterface
 {

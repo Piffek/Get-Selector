@@ -4,8 +4,7 @@
 	"prefer-stable" : true,
 	"autoload" : {
 		"psr-4" : {
-			"Src\\" : "src",
-			"src\\" : "src"
+			"Piffek\\WebsiteParser\\" : "src/Parser"
 		}
 	},
 	"extra" : {
