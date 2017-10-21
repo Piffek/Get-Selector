@@ -1,11 +1,6 @@
 {
 	"name" : "Piffek/Get-Selector",
-	"extra" : {
-		"branch-alias" : {
-			"dev-master" : "1.10.x-dev"
-		}
-	},
-	"minimum-stability" : "stable",
+	"minimum-stability" : "dev_master",
 	"autoload" : {
 		"psr-4" : {
 			"Src\\" : "src",
