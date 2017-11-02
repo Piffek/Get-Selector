@@ -20,8 +20,13 @@ this_id - id of element, example(id="this_id").
 
 if you get class
 ```php
-$array = $parser->get('https://webpage.pl/', 'id', ['this_id']);
-echo $array[0]['this_id'];
+$array = $parser->get('https://webpage.pl/', 'id', ['selector_id']);
+echo $array[0]['selector_id'];
+
+//OR CLASS
+
+$array = $parser->get('https://webpage.pl/', 'class', ['selector_class']);
+echo $array[0]['selector_class'];
 ```
 
 if you would like show all array use
