@@ -1,5 +1,7 @@
 <?php 
+
 namespace Piffek\WebsiteParser;
+
 use Piffek\WebsiteParser\Exception;
 use Piffek\WebsiteParser\ParserInterface;
 
@@ -22,9 +24,7 @@ class Trigger extends Exception
      * @param string $selector id or class.
      * @param array  $params   name of id or class.
      * @param string $tag      optional (div, br etc...).
-     * 
      * @return \DOMDocument
-     * 
      * @throws Exception
      */
     public function get(string $url = null, $selector = null, $params = null, $tag = null)
@@ -35,5 +35,4 @@ class Trigger extends Exception
             echo $e->getMessage();
         }
     }
-    
 }

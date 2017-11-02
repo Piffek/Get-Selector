@@ -1,5 +1,7 @@
 <?php 
+
 namespace Piffek\WebsiteParser;
+
 use DOMDocument;
 use DOMXPath;
 

@@ -1,5 +1,7 @@
 <?php 
+
 namespace Piffek\WebsiteParser;
+
 use DOMDocument;
 
 /**
@@ -14,10 +16,7 @@ interface ParserInterface
      * @param string $selector id or class.
      * @param array  $params   name of id or class.
      * @param string $tag      optional (div, br etc...).
-     * 
      * @return DOMDocument
      */
     public function find(string $url, string $selector, array $params, $tag);
 }
-
-?>

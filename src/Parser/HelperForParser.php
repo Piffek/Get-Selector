@@ -1,5 +1,7 @@
 <?php 
+
 namespace Piffek\WebsiteParser;
+
 use DOMXPath;
 
 /**
@@ -7,12 +9,11 @@ use DOMXPath;
  */
 class HelperForParser
 {
-
+    
     /**
      * Make selector if not exist.
      * 
      * @param string $tag div, br.
-     *
      * @return string string
      */
     public function tag($tag)
@@ -26,7 +27,6 @@ class HelperForParser
      * Make parameters if not exists
      * 
      * @param string $what class or id.
-     * 
      * @return string
      */
     public function selector(string $what) : string
@@ -43,47 +43,39 @@ class HelperForParser
      * @param string   $selector id or class.
      * @param DOMXPath $dom      node of whole page.
      * @param string   $tag      optional (div, br etc...).
-     * 
      * @return array
      */
     public function loop(array $params, string $selector, DOMXPath $dom, $tag) : array
     {
         if (is_array($params)) {
-            
             $review = array();
             foreach ((array)$params as $param) {
-                
                 $results = $dom->query(
                     "//".$this->tag($tag).
                     "[@".$this->selector($selector).
                     "='" . $param . "']"
                 );
-                
                 for ($i=0; $results->length > $i; $i++) {
-                    
                     $review[$i][$param] = $results->item($i)->nodeValue;
-                    
                 }
             }
+            
             return $review;
+            
         } else {
             $review = array();
             $result = $dom->query("//*[@".$this->what($what)."]");
             for ($i=0; $result->length > $i; $i++) {
-                
                 $review[] = $result->item($i)->nodeValue.'<br>';
-                
             }
             return $review;
         }
-        
     }
     
     /**
      * Checking globally CURL options.
      * 
      * @param CURL $ch parse url.
-     * 
      * @return void
      */
     public function checkCurlOptions($ch)
@@ -95,9 +87,4 @@ class HelperForParser
         curl_setopt($ch, CURLOPT_TIMEOUT, 3);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
     }
-    
-    
-    
-    
-    
 }
