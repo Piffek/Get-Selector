@@ -16,7 +16,7 @@ download this repository by add this to your composer.json
 <br>
 https://webpage.pl/ - page of with you want get element. <br>
 id - selector. <br>
-this_id - id of element, example(id="this_id").
+selector_id - id of element, example(id="this_id").
 
 if you get class
 ```php
