@@ -8,7 +8,7 @@ use Piffek\WebsiteParser\ParserInterface;
 /**
  * Userfriendly method.
  */
-class Trigger extends Exception
+class Hand extends Exception
 {
     protected $parser;
     public function __construct(ParserInterface $parser)

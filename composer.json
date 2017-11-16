@@ -1,14 +1,4 @@
 {
-	"authors" : [{
-			"category" : "parser",
-			"package" : "Piffek\\WebsiteParser",
-			"name" : "Patryk Piwko",
-			"license" : "MIT",
-			"link" : "github.com/Piffek/Get-Selector",
-			"email" : "piwko.patryk1@gmail.com",
-			"role" : "Developer"
-		}
-	],
 	"name" : "Piffek/Get-Selector",
 	"minimum-stability" : "dev",
 	"prefer-stable" : true,
